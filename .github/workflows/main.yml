@@ -47,10 +47,7 @@ jobs:
           echo "Workflow ID: $workflow_id" # Debug print
           npx specmatic-insights-github-build-reporter \
             --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
-            --branch-ref ${{ github.ref }} \
             --branch-name ${{ github.ref_name }} \
-            --build-definition-id "$workflow_id" \
-            --build-id ${{ github.run_id }} \
             --repo-name ${{ github.event.repository.name }} \
             --repo-id ${{ github.repository_id }} \
             --repo-url ${{ github.event.repository.html_url }}
