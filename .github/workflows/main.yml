@@ -42,10 +42,19 @@ jobs:
         run: npm test -- --watchAll=false
 
       - name: Run Specmatic Insights Github Build Reporter
-        run: |
-          npx specmatic-insights-github-build-reporter \
-            --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
-            --branch-name ${{ github.ref_name }} \
-            --repo-name ${{ github.event.repository.name }} \
-            --repo-id ${{ github.repository_id }} \
-            --repo-url ${{ github.event.repository.html_url }}
+        uses: specmatic/specmatic-insights-build-reporter-github-action@v2.1.0
+        with:
+          org-id: ${{ secrets.SPECMATIC_ORG_ID }}
+          branch-name: ${{ github.ref_name }}
+          repo-name: ${{ github.event.repository.name }}
+          repo-id: ${{ github.repository_id }}
+          repo-url: ${{ github.event.repository.html_url }}
+
+      # - name: Run Specmatic Insights Github Build Reporter
+      #   run: |
+      #     npx specmatic-insights-github-build-reporter \
+      #       --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
+      #       --branch-name ${{ github.ref_name }} \
+      #       --repo-name ${{ github.event.repository.name }} \
+      #       --repo-id ${{ github.repository_id }} \
+      #       --repo-url ${{ github.event.repository.html_url }}
