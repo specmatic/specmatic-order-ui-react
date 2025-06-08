@@ -19,32 +19,30 @@ jobs:
       # https://stackoverflow.com/questions/72648487/node-js-16-17-changed-resolution-of-localhost
       - run: ${{ !startsWith(matrix.os, 'ubuntu') }} || sudo sed -i '/localhost/c\127.0.0.1 localhost' /etc/hosts
       - run: ${{ !startsWith(matrix.os, 'macos') }} || sudo sed -i '' -e 's/.*localhost.*/127.0.0.1 localhost/g' /etc/hosts
+      
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
+      
       - name: Set up JRE 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
           java-package: 'jre'
+      
       - name: Use Node.js 18/x
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      
       - name: npm install
         run: npm ci
+      
       - name: Run UI Component Test
         run: npm test -- --watchAll=false
 
       - name: Run Specmatic Insights Github Build Reporter
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
         run: |
-          api_url="https://api.github.com/repos/${{ github.repository }}/actions/workflows"
-          workflow_name="${{ github.workflow }}"
-          response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" $api_url)
-          workflow_id=$(echo "$response" | jq -r --arg workflow_name "$workflow_name" '.workflows[] | select(.name == $workflow_name) | .id')
-          echo "Workflow ID: $workflow_id" # Debug print
           npx specmatic-insights-github-build-reporter \
             --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
             --branch-name ${{ github.ref_name }} \
