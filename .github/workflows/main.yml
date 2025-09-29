@@ -42,10 +42,20 @@ jobs:
       - name: Run UI Component Test
         run: npm test -- --watchAll=false
 
-      - name: Run Specmatic Insights Github Build Reporter
+      - name: Save Specmatic license
         run: |
-          npx specmatic-insights-github-build-reporter \
-            --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
+          mkdir -p ~/.specmatic
+          echo "${{ secrets.SPECMATIC_LICENSE_KEY }}" > ~/.specmatic/specmatic-license.txt
+
+      - name: Run Specmatic Insights Build Reporter
+        run: |
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
+            -v ~/.specmatic:/root/.specmatic \
+            -w /workspace \
+            specmatic/specmatic-reporter \
+            send-report \
+            --metadata build_url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
             --branch-name ${{ github.ref_name }} \
             --repo-name ${{ github.event.repository.name }} \
             --repo-id ${{ github.repository_id }} \
