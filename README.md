@@ -19,7 +19,7 @@ npm test
 ```
 
 ## Updating the stub expectations
-Refer to this [documentation](https://specmatic.io/documentation/test_data_format.html) in order to understand how to update the stub expectations.
+Refer to this [documentation](https://docs.specmatic.io/documentation/external_examples.html) in order to understand how to update the stub expectations.
 
 ## FAQs
 
