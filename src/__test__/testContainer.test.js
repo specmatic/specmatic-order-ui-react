@@ -25,9 +25,9 @@ beforeAll(async () => {
         .withCommand(["virtualize", "--examples", "examples", "--port", `${stubPort}`])
         .withExposedPorts({ host: stubPort, container: stubPort })
         .withLogConsumer(stream => {
-            stream.on("data", line => console.log(line));
-            stream.on("err", line => console.error(line));
-            stream.on("end", () => console.log("Specmatic log stream ended"));
+            stream.on("data", process.stdout.write);
+            stream.on("err", process.stderr.write);
+            stream.on("end", () => process.stdout.write("Specmatic log stream ended"));
         })
         .withWaitStrategy(Wait.forLogMessage(/Stub server is running/i))
         .start();
