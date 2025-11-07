@@ -3,6 +3,10 @@
 # React Jest UI Component Testing with Specmatic
 This project demonstrates stubbing APIs with Specmatic by leveraging their OpenAPI specifications in Jest UI Component Tests.
 
+## Prerequisites
+- Node v20.x and above
+- Docker Desktop
+
 ## Install dependencies
 ```shell
 npm install
