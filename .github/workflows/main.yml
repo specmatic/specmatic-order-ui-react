@@ -21,7 +21,7 @@ jobs:
       - run: ${{ !startsWith(matrix.os, 'ubuntu') }} || sudo sed -i '/localhost/c\127.0.0.1 localhost' /etc/hosts
       - run: ${{ !startsWith(matrix.os, 'macos') }} || sudo sed -i '' -e 's/.*localhost.*/127.0.0.1 localhost/g' /etc/hosts
       
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with: { fetch-depth: 0 }
       
       - name: Set up JRE 17
