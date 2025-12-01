@@ -6,7 +6,7 @@
             "pageSize": 10
         },
         "query": {
-            "type": "headphone"
+            "type": "book"
         }
     },
     "http-response": {

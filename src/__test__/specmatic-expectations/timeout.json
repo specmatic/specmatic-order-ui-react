@@ -6,7 +6,7 @@
             "pageSize": "(number)"
         },
         "query": {
-            "type": "bike"
+            "type": "other"
         }
     },
     "http-response": {
@@ -15,13 +15,13 @@
             {
                 "name": "Hero",
                 "id": 559,
-                "type": "bike",
+                "type": "other",
                 "inventory": 10
             },
             {
                 "name": "Bajaj",
                 "id": 2,
-                "type": "bike",
+                "type": "other",
                 "inventory": 5
             }
         ],

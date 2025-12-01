@@ -4,4 +4,4 @@ contracts:
     url: https://github.com/znsio/specmatic-order-contracts.git
     branch: main
   consumes:
-  - io/specmatic/examples/store/openapi/product_search_bff_v4.yaml
+  - io/specmatic/examples/store/openapi/product_search_bff_v5.yaml

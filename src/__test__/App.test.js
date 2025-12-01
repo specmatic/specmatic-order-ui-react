@@ -5,7 +5,7 @@ import { startStub, stopStub, setExpectations } from 'specmatic'
 const jp = require('jsonpath')
 
 const GADGET_LIST_EXPECTATION_FILE = "specmatic-expectations/gadget_list.json"
-const EMPTY_GADGET_LIST_EXPECTATION_FILE="specmatic-expectations/no_data_found_gadget_list.json"
+const EMPTY_GADGET_LIST_EXPECTATION_FILE="specmatic-expectations/no_data_found_list.json"
 const TIMEOUT_EXPECTATION_FILE="specmatic-expectations/timeout.json"
 const gadgetListExpectationObject = require(`./${GADGET_LIST_EXPECTATION_FILE}`)
 const gadgetList = jp.query(gadgetListExpectationObject, '$..body[*]')
@@ -45,7 +45,7 @@ test('Empty Product List', async () => {
   process.env.REACT_APP_API_URL=STUB_URL
 
   //Act
-  render(<App type="headphone" />)
+  render(<App type="book" />)
 
   //Assert
   await waitFor(() => {
@@ -61,7 +61,7 @@ test('timeout error', async () => {
   process.env.REACT_APP_API_URL=STUB_URL
 
   //Act
-  render(<App type="bike" />)
+  render(<App type="other" />)
 
   //Assert
   await waitFor(() => {
