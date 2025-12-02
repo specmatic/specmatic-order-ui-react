@@ -177,3 +177,196 @@ body {
   border-radius: 16px;
   border: 1px solid rgba(148, 163, 184, 0.45);
 }
+
+/* Create form styles */
+.create-container {
+  margin: 24px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,250,252,0.6));
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,0.12);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+}
+
+.create-title {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Toggle button container - make space and center for attention */
+.create-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px; /* slightly larger gap */
+  align-items: center;
+}
+
+/* Form layout */
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row.two-col {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 12px;
+}
+
+.form-label {
+  font-size: 0.78rem;
+  color: #55607a;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Inputs / selects */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(148,163,184,0.22);
+  background: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 2px 6px rgba(15,23,42,0.03);
+}
+
+.form-input::placeholder {
+  color: #9aa6b4;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 6px 18px rgba(59,130,246,0.08);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(37,99,235,0.14);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(37,99,235,0.18);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: #ffffff;
+  color: #1f2933;
+  border: 1px solid rgba(31,41,51,0.08);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(15,23,42,0.04);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15,23,42,0.08);
+  background: #f8fafc;
+}
+
+/* Accent button - prominent CTA for adding products */
+.btn-accent {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(90deg, #06b6d4 0%, #3b82f6 50%, #7c3aed 100%);
+  box-shadow: 0 18px 40px rgba(59,130,246,0.18), 0 6px 18px rgba(124,58,237,0.08);
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+}
+
+/* subtle hover and active states to draw attention */
+.btn-accent:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 56px rgba(59,130,246,0.22), 0 10px 26px rgba(124,58,237,0.12);
+}
+
+.btn-accent:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* gentle pulse to attract attention without being distracting */
+@keyframes accent-pulse {
+  0% { box-shadow: 0 18px 40px rgba(59,130,246,0.14); }
+  50% { box-shadow: 0 26px 56px rgba(59,130,246,0.20); }
+  100% { box-shadow: 0 18px 40px rgba(59,130,246,0.14); }
+}
+
+.btn-accent {
+  animation: accent-pulse 3.5s ease-in-out infinite;
+}
+
+/* Form messages override */
+.message.form-error {
+  margin-top: 6px;
+  background: #fff6f6;
+  color: #c53030;
+  border-color: #f8d7d7;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.message.form-success {
+  margin-top: 6px;
+  background: #f5fffb;
+  color: #065f46;
+  border-color: #d1fae5;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 520px) {
+  .form-row.two-col {
+    grid-template-columns: 1fr;
+  }
+}
