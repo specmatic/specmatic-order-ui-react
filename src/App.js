@@ -3,9 +3,12 @@ import axios from "axios"
 import './App.css'
 
 const VALID_TYPES = ['book', 'gadget', 'food', 'other']
+const getToday = () => new Date().toISOString().split('T')[0]
 
 const App = ({ type }) => {
     const [query, setQuery] = useState(type)
+    const [fromDate, setFromDate] = useState(() => getToday())
+    const [toDate, setToDate] = useState(() => getToday())
     const [products, setProducts] = useState(null)
     const [error, setError] = useState('')
 
@@ -25,9 +28,23 @@ const App = ({ type }) => {
     }, [type])
 
     // Extracted fetch logic so it can be reused after create
-    const fetchProducts = async (q) => {
-        if (q && !VALID_TYPES.includes(q)) {
+    const fetchProducts = async (q, from, to) => {
+        const cleanedType = (q || '').trim()
+
+        if (cleanedType && !VALID_TYPES.includes(cleanedType)) {
             setError(`Invalid type. Allowed: ${VALID_TYPES.join(', ')}`)
+            setProducts(null)
+            return
+        }
+
+        if (!from) {
+            setError('From date is required')
+            setProducts(null)
+            return
+        }
+
+        if (!to) {
+            setError('To date is required')
             setProducts(null)
             return
         }
@@ -36,8 +53,16 @@ const App = ({ type }) => {
             setError('')
             setProducts(null) // show loading
             const response = await axios.get(
-                `${process.env.REACT_APP_API_URL}/findAvailableProducts?type=${q}`,
-                { timeout: 1000, headers: { pageSize: 10 } }
+                `${process.env.REACT_APP_API_URL}/findAvailableProducts`,
+                {
+                    params: {
+                        ...(cleanedType ? { type: cleanedType } : {}),
+                        'from-date': from,
+                        'to-date': to
+                    },
+                    timeout: 1000,
+                    headers: { pageSize: 10 }
+                }
             )
             setProducts(response.data)
         } catch (e) {
@@ -50,8 +75,8 @@ const App = ({ type }) => {
     }
 
     useEffect(() => {
-        fetchProducts(query)
-    }, [query])
+        fetchProducts(query, fromDate, toDate)
+    }, [query, fromDate, toDate])
 
     // Create product by calling /products endpoint
     const createProduct = async (e) => {
@@ -84,7 +109,7 @@ const App = ({ type }) => {
             setNewInventory('')
 
             // refresh list for current query
-            await fetchProducts(query)
+            await fetchProducts(query, fromDate, toDate)
         } catch (err) {
             if (err.code === 'ECONNABORTED') {
                 setSubmitError('Timeout! Please try again...')
@@ -103,13 +128,40 @@ const App = ({ type }) => {
             </header>
 
             <div className="search-container">
-                <input
-                    type="text"
-                    className="search-input"
-                    placeholder="Enter type (book, gadget, food, other)"
-                    value={query || ''}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
+                <div className="search-form">
+                    <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Enter type (book, gadget, food, other)"
+                        value={query || ''}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+
+                    <div className="date-row">
+                        <div className="date-field">
+                            <label className="form-label" htmlFor="from-date">From date</label>
+                            <input
+                                id="from-date"
+                                type="date"
+                                className="form-input"
+                                value={fromDate}
+                                onChange={(e) => setFromDate(e.target.value)}
+                                aria-required="true"
+                            />
+                        </div>
+                        <div className="date-field">
+                            <label className="form-label" htmlFor="to-date">To date</label>
+                            <input
+                                id="to-date"
+                                type="date"
+                                className="form-input"
+                                value={toDate}
+                                onChange={(e) => setToDate(e.target.value)}
+                                aria-required="true"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Toggle button to show/hide create form */}
