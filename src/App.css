@@ -47,6 +47,8 @@ body {
 }
 
 .search-input {
+  display: block;
+  margin: 0 auto;
   width: 100%;
   max-width: 500px;
   padding: 14px 16px;
