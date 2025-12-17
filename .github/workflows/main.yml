@@ -45,13 +45,13 @@ jobs:
           mkdir -p ~/.specmatic
           echo "${{ secrets.SPECMATIC_LICENSE_KEY }}" > ~/.specmatic/specmatic-license.txt
 
+      - name: Run UI Component Test
+        run: npm test -- --watchAll=false
+
       - name: Show Specmatic stub report
         run: |
           ls -R build/reports/specmatic || true
           cat build/reports/specmatic/stub/ctrf-report.json || true
-      
-      - name: Run UI Component Test
-        run: npm test -- --watchAll=false
 
       - name: Run Specmatic Insights Build Reporter
         if: github.ref == 'refs/heads/main'
