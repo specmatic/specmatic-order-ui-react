@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "jsonpath": "^1.1.1",
-    "specmatic": "^2.34.2",
+    "specmatic": "^2.29.0",
     "testcontainers": "^11.8.0"
   },
   "scripts": {
