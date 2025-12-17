@@ -60,7 +60,7 @@ jobs:
           ls -R build/reports/specmatic || true
           echo
           echo "Trying to print CTRF report:"
-          cat build/reports/specmatic/stub/ctrf-report.json || true
+          cat build/reports/specmatic/stub/ctrf/ctrf-report.json || true
 
 
       - name: Run Specmatic Insights Build Reporter
