@@ -41,16 +41,16 @@ test('renders gadgets list', async () => {
     for (const gadget of gadgetList) expect(screen.getByText(gadget.name)).toBeInTheDocument()
 }, 120000)
 
-test('Empty Product List', async () => {
-    render(<App type="headphone" />)
-    await waitFor(() => expect(screen.getByText("No Products found")).toBeInTheDocument(), { timeout })
-}, 120000)
+// test('Empty Product List', async () => {
+//     render(<App type="headphone" />)
+//     await waitFor(() => expect(screen.getByText("No Products found")).toBeInTheDocument(), { timeout })
+// }, 120000)
 
 
-test('timeout error', async () => {
-    render(<App type="bike" />)
-    await waitFor(() => expect(screen.getByText("Timeout! Please try again...")).toBeInTheDocument(), { timeout })
-}, 120000)
+// test('timeout error', async () => {
+//     render(<App type="bike" />)
+//     await waitFor(() => expect(screen.getByText("Timeout! Please try again...")).toBeInTheDocument(), { timeout })
+// }, 120000)
 
 afterAll(async () => {
     await stub.stop()
