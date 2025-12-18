@@ -12,7 +12,7 @@ let stub
 const GADGET_LIST_EXPECTATION_FILE = "specmatic-expectations/gadget_list.json"
 const expectationsDir = path.resolve("src/__test__/specmatic-expectations")
 const stubHost = "localhost"
-const stubPort = 9000
+const stubPort = 9001
 const timeout = 1500
 
 beforeAll(async () => {

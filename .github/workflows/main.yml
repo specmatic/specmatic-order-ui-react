@@ -48,21 +48,6 @@ jobs:
       - name: Run UI Component Test
         run: npm test -- --watchAll=false
 
-      - name: Show Specmatic stub report
-        run: |
-          echo "CWD is:"
-          pwd
-          echo
-          echo "Contents of workspace root:"
-          ls -la
-          echo
-          echo "Looking for Specmatic reports:"
-          ls -R ./build/reports/specmatic || true
-          echo
-          echo "Trying to print CTRF report:"
-          cat build/reports/specmatic/stub/ctrf/ctrf-report.json || true
-
-
       - name: Run Specmatic Insights Build Reporter
         if: github.ref == 'refs/heads/main'
         run: |
