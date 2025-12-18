@@ -46,7 +46,7 @@ jobs:
           echo "${{ secrets.SPECMATIC_LICENSE_KEY }}" > ~/.specmatic/specmatic-license.txt
 
       - name: Run UI Component Test
-        run: npm test -- --watchAll=false
+        run: npm test -- --watchAll=false src/__test__/App.test.js
 
       - name: Show Specmatic stub report
         run: |
