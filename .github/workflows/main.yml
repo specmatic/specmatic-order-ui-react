@@ -46,7 +46,7 @@ jobs:
           echo "${{ secrets.SPECMATIC_LICENSE_KEY }}" > ~/.specmatic/specmatic-license.txt
 
       - name: Run UI Component Test
-        run: npm test -- --watchAll=false src/__test__/App.test.js
+        run: npm test -- --watchAll=false
 
       - name: Show Specmatic stub report
         run: |
@@ -57,7 +57,7 @@ jobs:
           ls -la
           echo
           echo "Looking for Specmatic reports:"
-          ls -R build/reports/specmatic || true
+          ls -R ./build/reports/specmatic || true
           echo
           echo "Trying to print CTRF report:"
           cat build/reports/specmatic/stub/ctrf/ctrf-report.json || true
