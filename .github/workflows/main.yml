@@ -48,7 +48,7 @@ jobs:
       - name: Run UI Component Test
         run: npm test -- --watchAll=false
 
-      - name: Run Specmatic Insights Build Reporter
+      - name: Publish Build Report to Specmatic Insights
         if: github.ref == 'refs/heads/main'
         run: |
           docker run \
