@@ -50,6 +50,9 @@ jobs:
       - name: Run UI Component Test
         run: npm test -- --watchAll=false
 
+      - name: Sleep for 10 seconds
+        run: sleep 10
+
       - name: Upload Stub CTRF Report
         uses: actions/upload-artifact@v4
         if: always() # Run even if tests fail
