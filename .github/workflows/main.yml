@@ -1,48 +1,37 @@
-name: CI with contracts run through command line
+name: CI with Specmatic Mocks
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        node-version: [20.x]
-        os: [ubuntu-latest]
-        # Node 18.x needs for ipv6 entry modification in hosts file and how do it on widnows is not clear
-        # due to permissions required etc
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     env:
-      CTRF_REPORT_PATH: 'build/reports/specmatic/stub/ctrf/*.json'
+      CTRF_REPORT_PATH: './build/reports/specmatic/stub/ctrf/*.json'
     steps:
-      # Node 18 does resolves localhost to ipv6 address by default but refuses any connection to it
-      # Fix this by changing DNS entries in /etc/hosts file to resolve localhost to ipv4 address
-      # https://stackoverflow.com/questions/72648487/node-js-16-17-changed-resolution-of-localhost
-      - run: ${{ !startsWith(matrix.os, 'ubuntu') }} || sudo sed -i '/localhost/c\127.0.0.1 localhost' /etc/hosts
-      - run: ${{ !startsWith(matrix.os, 'macos') }} || sudo sed -i '' -e 's/.*localhost.*/127.0.0.1 localhost/g' /etc/hosts
-      
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with: { fetch-depth: 0 }
       
       - name: Set up JRE 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
           java-package: 'jre'
       
-      - name: Use Node.js 18/x
-        uses: actions/setup-node@v4
+      - name: Use Node.js 25
+        uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 25
       
       - name: npm install
         run: npm ci
 
       - name: Save Specmatic license
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           mkdir -p ~/.specmatic
           echo "${{ secrets.SPECMATIC_LICENSE_KEY }}" > ~/.specmatic/specmatic-license.txt
@@ -69,7 +58,7 @@ jobs:
           report-path: ${{ env.CTRF_REPORT_PATH }}
 
       - name: Publish Build Report to Specmatic Insights
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           docker run \
             -v ${{ github.workspace }}:/usr/src/app \
