@@ -13,7 +13,6 @@ jobs:
       CTRF_REPORT_PATH: './build/reports/specmatic/stub/ctrf/*.json'
     steps:
       - uses: actions/checkout@v6
-        with: { fetch-depth: 0 }
       
       - name: Set up JRE 17
         uses: actions/setup-java@v5
