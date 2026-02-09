@@ -14,12 +14,12 @@ npm install
 
 ### Start the application
 ```shell
-npm start
+npm run start
 ```
 
 ## Running automated UI Component tests with Specmatic
 ```shell
-npm test
+npm run test
 ```
 
 ## Updating the stub expectations

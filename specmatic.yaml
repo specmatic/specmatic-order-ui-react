@@ -1,7 +1,30 @@
-version: 2
-contracts:
-- git:
-    url: https://github.com/specmatic/specmatic-order-contracts.git
-    branch: main
-  consumes:
-  - io/specmatic/examples/store/openapi/product_search_bff_v4.yaml
+version: 3
+dependencies:
+  services:
+    - service:
+        $ref: '#/components/services/productSearchBffV4'
+        data:
+          examples:
+            - directories:
+                - ./examples
+        runOptions:
+          $ref: '#/components/runOptions/productSearchBffV4Mock'
+components:
+  sources:
+    specmaticOrderContracts:
+      git:
+        url: 'https://github.com/specmatic/specmatic-order-contracts.git'
+  services:
+    productSearchBffV4:
+      description: Product Search BFF V4
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/specmaticOrderContracts"
+            specs:
+              - io/specmatic/examples/store/openapi/product_search_bff_v4.yaml
+  runOptions:
+    productSearchBffV4Mock:
+      openapi:
+        type: mock
+        baseUrl:  http://localhost:9000
