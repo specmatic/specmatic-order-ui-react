@@ -11,19 +11,16 @@ const jp = require('jsonpath')
 let stub
 const GADGET_LIST_EXPECTATION_FILE = "specmatic-expectations/gadget_list.json"
 const expectationsDir = path.resolve("src/__test__/specmatic-expectations")
-const stubHost = "localhost"
-const stubPort = 9001
 const timeout = 1500
 
 beforeAll(async () => {
-    process.env.REACT_APP_API_URL = `http://${stubHost}:${stubPort}`
     stub = await new GenericContainer("specmatic/specmatic")
         .withBindMounts([
             { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
             { source: expectationsDir, target: "/usr/src/app/examples" }
         ])
-        .withCommand(["virtualize", "--examples", "examples", "--port", `${stubPort}`])
-        .withExposedPorts({ host: stubPort, container: stubPort })
+        .withCommand(["stub"])
+        .withNetworkMode("host")
         .withLogConsumer(stream => {
             stream.on("data", process.stdout.write);
             stream.on("err", process.stderr.write);
