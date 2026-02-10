@@ -19,14 +19,14 @@ beforeAll(async () => {
             { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
             { source: expectationsDir, target: "/usr/src/app/examples" }
         ])
-        .withCommand(["stub"])
+        .withCommand(["mock"])
         .withNetworkMode("host")
         .withLogConsumer(stream => {
             stream.on("data", process.stdout.write);
             stream.on("err", process.stderr.write);
             stream.on("end", () => process.stdout.write("Specmatic log stream ended"));
         })
-        .withWaitStrategy(Wait.forLogMessage(/Stub server is running/i))
+        .withWaitStrategy(Wait.forLogMessage(/Mock server is running/i))
         .start();
 }, 120000)
 
