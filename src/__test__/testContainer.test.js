@@ -15,7 +15,9 @@ const timeout = 1500
 beforeAll(async () => {
     mock = await new GenericContainer("specmatic/specmatic")
         .withBindMounts([
-            { source: path.resolve("."), target: "/usr/src/app" },
+            { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
+            { source: path.resolve("src"), target: "/usr/src/app/src" },
+            { source: path.resolve("build/reports/specmatic"), target: "/usr/src/app/build/reports/specmatic" },
         ])
         .withCommand(["mock"])
         .withNetworkMode("host")
@@ -51,7 +53,7 @@ afterAll(async () => {
   console.log("Stopping HTTP Mock server");
   await mock?.stop({
     timeout: 60_000,   // give Specmatic time to generate reports
-    remove: true
+    remove: true 
   });
   console.log("HTTP Mock stopped");
 }, 120_000);
