@@ -16,8 +16,7 @@ beforeAll(async () => {
     mock = await new GenericContainer("specmatic/specmatic")
         .withBindMounts([
             { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
-            { source: path.resolve("src"), target: "/usr/src/app/src" },
-            { source: path.resolve("build/reports/specmatic"), target: "/usr/src/app/build/reports/specmatic" },
+            { source: path.resolve("src"), target: "/usr/src/app/src" }
         ])
         .withCommand(["mock"])
         .withNetworkMode("host")
