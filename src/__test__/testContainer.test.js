@@ -15,9 +15,7 @@ const timeout = 1500
 beforeAll(async () => {
     mock = await new GenericContainer("specmatic/specmatic")
         .withBindMounts([
-            { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
-            { source: path.resolve("src"), target: "/usr/src/app/src" },
-            { source: path.resolve("build/reports/specmatic"), target: "/usr/src/app/build/reports/specmatic" },
+            { source: path.resolve("."), target: "/usr/src/app" },
         ])
         .withCommand(["mock"])
         .withNetworkMode("host")
