@@ -8,16 +8,16 @@ const jp = require('jsonpath')
 /**
  * @type {import("testcontainers").StartedTestContainer}
  */
-let stub
+let mock
 const GADGET_LIST_EXPECTATION_FILE = "specmatic-expectations/gadget_list.json"
-const expectationsDir = path.resolve("src/__test__/specmatic-expectations")
 const timeout = 1500
 
 beforeAll(async () => {
-    stub = await new GenericContainer("specmatic/specmatic")
+    mock = await new GenericContainer("specmatic/specmatic")
         .withBindMounts([
             { source: path.resolve("specmatic.yaml"), target: "/usr/src/app/specmatic.yaml" },
-            { source: expectationsDir, target: "/usr/src/app/examples" }
+            { source: path.resolve("src"), target: "/usr/src/app/src" },
+            { source: path.resolve("build/reports/specmatic"), target: "/usr/src/app/build/reports/specmatic" },
         ])
         .withCommand(["mock"])
         .withNetworkMode("host")
@@ -50,5 +50,5 @@ test('timeout error', async () => {
 }, 120000)
 
 afterAll(async () => {
-    await stub.stop()
+    await mock.stop()
 }, 120000)

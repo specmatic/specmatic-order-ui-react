@@ -18,7 +18,7 @@ const timeout = 1500
 let stub
 
 beforeAll(async () => {
-  stub = await startStub(STUB_HOST, STUB_PORT)
+  stub = await startStub()
 }, 120000)
 
 test('renders gadgets list', async () => {

@@ -6,7 +6,7 @@ dependencies:
         data:
           examples:
             - directories:
-                - ./examples
+                - ./src/__test__/specmatic-expectations
         runOptions:
           $ref: '#/components/runOptions/productSearchBffV4Mock'
 components:
