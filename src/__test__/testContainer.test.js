@@ -53,7 +53,7 @@ afterAll(async () => {
   console.log("Stopping HTTP Mock server");
   await mock?.stop({
     timeout: 60_000,   // give Specmatic time to generate reports
-    remove: true       // optional; default behavior depends on your config
+    remove: true
   });
   console.log("HTTP Mock stopped");
 }, 120_000);
