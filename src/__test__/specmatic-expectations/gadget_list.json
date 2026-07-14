@@ -3,7 +3,7 @@
         "path": "/findAvailableProducts",
         "method": "GET",
         "headers": {
-            "pageSize": "(number)"
+            "pageSize": "10"
         },
         "query": {
             "type": "gadget"
